@@ -1,4 +1,4 @@
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL } from './constants';
+import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS } from './constants';
 
 
 export const populateUserData = (apiData) => ({
@@ -15,24 +15,26 @@ export const markLoading = () => ({
 });
 
 export const registerUser = (formData) => {
-return dispatch => {
+return async (dispatch) => {
     dispatch(markLoading());
-    fetch('https://api-jfdzl2.herokuapp.com/api/v1/users/signup', {
+   const response = await fetch('https://api-jfdzl2.herokuapp.com/api/v1/users/signup', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(response => response.json())
-        .then(responseData => {
-            dispatch(populateUserData(responseData))
-        })
-        .catch(error => {
-            dispatch(markError());
-        })
+    });
+    if (response.status >= 200 && response.status < 300) {
+        const responseData = await response.json();
+        dispatch(populateUserData(responseData));
+    } else {
+            dispatch(markError())
+        }
+    }
 }
-}
+
+
 
 
 

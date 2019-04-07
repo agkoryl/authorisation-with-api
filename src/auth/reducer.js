@@ -2,7 +2,7 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_REQUEST } from './constants';
 
 const INITIAL_STATE = {
     user: {},
-    isLoading: true,
+    isLoading: false,
     hasError: false,
 }
 

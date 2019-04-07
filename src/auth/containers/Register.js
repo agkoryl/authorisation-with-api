@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Register.css';
 import { registerUser } from '../actions';
 
+
 class Register extends Component {
 
     state = {
@@ -26,7 +27,7 @@ class Register extends Component {
 
     renderIndicator = ()=> {
         if(this.props.isLoading) {
-            return <div>LOADING</div>
+            return <div > LOADING, PLEASE WAIT...</div>
         }
         return null;
     }
